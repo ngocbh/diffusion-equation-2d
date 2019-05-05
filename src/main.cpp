@@ -109,6 +109,6 @@ int main()
 	C = (float*)malloc(m*n*sizeof(float));
 	KhoiTao(C);
 	Gauss_Seidel(C);
-
+	freopen("out.txt","w",stdout);
 	return 0;
 }
