@@ -3,7 +3,7 @@
 */
 
 #include <stdio.h>
-#include <malloc.h>
+#include <stdlib.h>
 #include <mpi.h>
 
 #define M       20
@@ -56,9 +56,21 @@ int main(int argc,char *argv[])
 	Tl = (float*)malloc(sizeof(float));
 	Tr = (float*)malloc(sizeof(float));
 
+        for (int i = 0; i < M; i++) 
+                *(T+i) = i;
+
         MPI_Scatter(T,Mc,MPI_FLOAT,Ts,Mc,MPI_FLOAT,0,MPI_COMM_WORLD);
         float t = 0 ;
+
+        printf("rank = %d\n", rank);
+        for (int i = 0; i < Mc; i++) {
+                printf("[%d %f] ",rank,*(Ts+i));
+        }
+        fflush(stdout);
+
+
         while ( t < Time ) {
+                // printf("%d\n",rank);
                 if (rank == 0) {
                         *Tl = 100.0;
                         MPI_Send(Ts+Mc-1,1,MPI_FLOAT,rank+1,rank,MPI_COMM_WORLD);
@@ -82,7 +94,7 @@ int main(int argc,char *argv[])
                 for (i =  0; i < Mc; i++) {
                         *(Ts+i) = *(Ts+i) + *(dTs+i) * dt;
                 }
-
+                // printf("hala one: %d\n",rank);
                 t = t + dt;
         }
 
