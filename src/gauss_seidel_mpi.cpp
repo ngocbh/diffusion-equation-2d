@@ -15,8 +15,8 @@ const long N = 100000 + 7;
 const long INF = 1000000000 + 7;
 const long MODULE = 1000000000 + 7;
 
-#define m 20
-#define n 20
+#define m 1000
+#define n 1000
 #define epsilon 0.001
 #define tolerance 0.001
 
@@ -74,6 +74,7 @@ void calc_red_back(float *C,float *Cn,int M,int N,int rb,int rank,float* delta)
 int main(int argc,char *argv[])
 {
 	freopen("in.txt","r",stdin);
+	freopen("out.txt","w",stdout);
 
 	int NP, rank, mc;
 	float *C;
